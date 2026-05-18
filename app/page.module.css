@@ -328,7 +328,7 @@
 
 .servicesTitle {
   font-family: 'Big Shoulders Display', sans-serif;
-  font-size: 12rem;
+  font-size: clamp(4.5rem, 8.8vw, 12rem);
   font-weight: 900;
   line-height: 0.8;
   letter-spacing: -2px;
@@ -550,7 +550,7 @@
 
 .stylistMainTitle {
   font-family: 'Big Shoulders Display', sans-serif;
-  font-size: 15rem;
+  font-size: clamp(5.5rem, 11vw, 15rem);
   font-weight: 900;
   line-height: 0.8;
   letter-spacing: -5px;
@@ -820,7 +820,7 @@
 
 .resultsTitle {
   font-family: 'Big Shoulders Display', sans-serif;
-  font-size: 7rem;
+  font-size: clamp(4.5rem, 7vw, 7rem);
   font-weight: 900;
   text-align: center;
   line-height: 0.9;
@@ -998,7 +998,7 @@
 
 .bookingMainTitle {
   font-family: 'Big Shoulders Display', sans-serif;
-  font-size: 10rem;
+  font-size: clamp(4.5rem, 8.5vw, 10rem);
   line-height: 0.85;
   letter-spacing: -2px;
   font-weight: 900;
@@ -1119,7 +1119,7 @@
   }
   
   .servicesHeader { margin-bottom: 2rem; }
-  .servicesTitle { font-size: 5rem; line-height: 0.85; }
+  .servicesTitle { font-size: clamp(3rem, 11vw, 4.5rem); line-height: 0.85; }
   .servicesContainer { 
     flex-direction: column; 
     gap: 3rem; 
@@ -1170,12 +1170,12 @@
   .bookAppointmentBtn { width: 100%; padding: 1.5rem; font-size: 0.9rem; }
   
   .stylistHeader { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .stylistMainTitle { font-size: 5rem; }
+  .stylistMainTitle { font-size: clamp(3.2rem, 14vw, 5rem); }
   .stylistSubTitle { text-align: left; }
   .stylistContent { grid-template-columns: 1fr; gap: 2rem; }
   .stylistName { font-size: 5rem; line-height: 0.85; letter-spacing: -2px; }
   .mainStylistImgWrapper { aspect-ratio: 0.75; }
-  .galleryMainTitle { font-size: 20vw; margin-bottom: 2rem; }
+  .galleryMainTitle { font-size: clamp(3.2rem, 14vw, 6rem); margin-bottom: 2rem; }
   .galleryGrid { flex-direction: column; }
   .galleryContainer { padding: 0 2rem; }
   .galleryImgMedium, .galleryImgSmall, .galleryImgTall { height: 400px; }
@@ -1183,14 +1183,14 @@
   .viewProjectsBtn { width: 100%; text-align: center; }
   .reviewsHeader { flex-direction: column; align-items: flex-start; gap: 2rem; }
   .reviewsSlider { grid-template-columns: 1fr; gap: 4rem; }
-  .resultsTitle { font-size: 3.5rem; letter-spacing: -1.5px; }
+  .resultsTitle { font-size: clamp(2.2rem, 9.5vw, 3.5rem); letter-spacing: -1.5px; }
   .resultsContent { grid-template-columns: 1fr; gap: 3rem; }
   .resultsImageCol { aspect-ratio: 1.1; }
   .brandMarqueeItem { font-size: 3.5rem; padding-right: 3rem; }
   .brandIntroText { font-size: 0.9rem; margin-bottom: 2rem; }
   .brandsWrapper { padding-top: 3rem; }
   .bookingGridNew { grid-template-columns: 1fr; gap: 4rem; }
-  .bookingMainTitle { font-size: 4rem; }
+  .bookingMainTitle { font-size: clamp(2.5rem, 11vw, 4rem); }
   .formRow { grid-template-columns: 1fr; gap: 2rem; }
   .dateSelection { flex-direction: column; }
   .galleryTitle { font-size: 4rem; }
