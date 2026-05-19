@@ -595,7 +595,7 @@
 }
 
 .stylistName {
-  font-size: 5rem;
+  font-size: clamp(3.5rem, 4.5vw, 5rem);
   line-height: 0.9;
   margin-bottom: 4rem;
 }
@@ -1173,7 +1173,7 @@
   .stylistMainTitle { font-size: clamp(3.2rem, 14vw, 5rem); }
   .stylistSubTitle { text-align: left; }
   .stylistContent { grid-template-columns: 1fr; gap: 2rem; }
-  .stylistName { font-size: 5rem; line-height: 0.85; letter-spacing: -2px; }
+  .stylistName { font-size: clamp(2.8rem, 12.5vw, 4rem); line-height: 0.85; letter-spacing: -2px; }
   .mainStylistImgWrapper { aspect-ratio: 0.75; }
   .galleryMainTitle { font-size: clamp(3.2rem, 14vw, 6rem); margin-bottom: 2rem; }
   .galleryGrid { flex-direction: column; }
