@@ -30,10 +30,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/medals.JPG",
+        url: "/images/bennu_studio_banner.png",
         width: 1200,
         height: 630,
-        alt: "Bennu Studio Prisvinnende Mestere",
+        alt: "Bennu Studio Eksklusiv Frisørsalong",
       }
     ],
   },
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bennu Studio | Eksklusiv Frisørsalong på Torshov, Oslo",
     description: "Prisvinnende frisør og hårstylister på Torshov i Oslo. Klipp, avansert farge, balayage, AirTouch og extensions.",
-    images: ["/images/medals.JPG"],
+    images: ["/images/bennu_studio_banner.png"],
   },
   icons: {
     icon: [
@@ -60,7 +60,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "HairSalon",
   "name": "Bennu Studio",
-  "image": "https://bennustudio.no/images/medals.JPG",
+  "image": "https://bennustudio.no/images/bennu_studio_banner.png",
   "@id": "https://bennustudio.no/#salon",
   "url": "https://bennustudio.no",
   "telephone": "+4791552878",
