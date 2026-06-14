@@ -41,17 +41,33 @@ export async function POST(req: Request) {
 
   const filename = `${Date.now()}-${randomId()}.${ext}`;
 
-  // Vercel Blob path
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    const { put } = await import('@vercel/blob');
-    const blob = await put(`gallery/${filename}`, file, { access: 'public' });
-    return NextResponse.json({ url: blob.url });
-  }
+  try {
+    // Vercel Blob path
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const { put } = await import('@vercel/blob');
+      const blob = await put(`gallery/${filename}`, file, { access: 'public' });
+      return NextResponse.json({ url: blob.url });
+    }
 
-  // Local dev path
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const dir = path.join(process.cwd(), 'public', 'images', 'gallery', 'uploads');
-  await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(path.join(dir, filename), buffer);
-  return NextResponse.json({ url: `/images/gallery/uploads/${filename}` });
+    // Safeguard for Vercel deployment without the token configured
+    if (process.env.VERCEL) {
+      return NextResponse.json(
+        { code: 'missing_blob_token', error: 'BLOB_READ_WRITE_TOKEN is not configured on Vercel.' },
+        { status: 500 }
+      );
+    }
+
+    // Local dev path
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const dir = path.join(process.cwd(), 'public', 'images', 'gallery', 'uploads');
+    await fs.mkdir(dir, { recursive: true });
+    await fs.writeFile(path.join(dir, filename), buffer);
+    return NextResponse.json({ url: `/images/gallery/uploads/${filename}` });
+  } catch (err: any) {
+    console.error('Upload error:', err);
+    return NextResponse.json(
+      { code: 'upload_failed', error: err.message || 'Opplasting mislyktes.' },
+      { status: 500 }
+    );
+  }
 }
