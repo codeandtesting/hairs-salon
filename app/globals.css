@@ -1,5 +1,7 @@
-@import "tailwindcss";
+/* Font import must come before Tailwind's import (CSS requires @import rules
+   to precede all other rules; Tailwind's import expands into rules). */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;400;700;900&family=Big+Shoulders+Display:wght@100;400;900&display=swap');
+@import "tailwindcss";
 
 
 :root {

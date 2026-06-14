@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# admin panel local-dev storage (Vercel uses Redis/Blob in production)
+/.data
+/public/images/gallery/uploads
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

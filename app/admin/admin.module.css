@@ -1,0 +1,387 @@
+/* Admin panel — matches Bennu Studio: minimalist black/white, Outfit headings */
+
+.adminWrap {
+  min-height: 100vh;
+  background: #fafafa;
+  color: #1a1a1a;
+  padding-bottom: 80px;
+}
+
+/* ---------- Login ---------- */
+.loginWrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  padding: 2rem;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 360px;
+  background: #fff;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.loginBrand {
+  font-family: var(--heading-font, 'Outfit', sans-serif);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.loginSub {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: #0a0a0a;
+  color: #fff;
+  flex-wrap: wrap;
+}
+
+.brandRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.brand {
+  font-family: var(--heading-font, 'Outfit', sans-serif);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 1.1rem;
+}
+
+.brandTag {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.65rem;
+  color: #999;
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Buttons ---------- */
+.primaryBtn {
+  background: #fff;
+  color: #0a0a0a;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 2px;
+  transition: opacity 0.2s;
+}
+.primaryBtn:hover { opacity: 0.85; }
+.primaryBtn:disabled { opacity: 0.5; cursor: default; }
+
+.ghostBtn {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #444;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: 2px;
+  transition: border-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+.ghostBtn:hover { border-color: #fff; }
+
+.addBtn {
+  background: #0a0a0a;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.addBtn:hover { opacity: 0.85; }
+
+.removeBtn {
+  align-self: flex-start;
+  background: transparent;
+  color: #b00020;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0;
+}
+.removeBtn:hover { text-decoration: underline; }
+
+/* ---------- Language toggle ---------- */
+.langToggle {
+  display: inline-flex;
+  border: 1px solid #444;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.langBtn, .langActive {
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 0.7rem;
+  color: #999;
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+.langBtn:hover { color: #fff; }
+.langActive {
+  background: #fff;
+  color: #0a0a0a;
+}
+
+/* On the dark login card the toggle sits at the top-right */
+.loginToggleRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.25rem;
+}
+.loginToggleRow .langToggle {
+  border-color: #ddd;
+}
+.loginToggleRow .langBtn {
+  color: #999;
+}
+.loginToggleRow .langBtn:hover {
+  color: #0a0a0a;
+}
+
+/* ---------- Tabs ---------- */
+.tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 2rem;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 64px;
+  z-index: 10;
+}
+
+.tab, .tabActive {
+  padding: 1rem 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: #999;
+  border-bottom: 2px solid transparent;
+}
+.tabActive {
+  color: #0a0a0a;
+  border-bottom-color: #0a0a0a;
+}
+
+/* ---------- Services layout ---------- */
+.servicesLayout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.catList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-self: start;
+  position: sticky;
+  top: 130px;
+}
+
+.catItem, .catItemActive {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  color: #444;
+  transition: background 0.15s;
+}
+.catItem:hover { background: #efefef; }
+.catItemActive {
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.catCount {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  font-weight: 700;
+}
+
+.editPane { min-width: 0; }
+
+.paneHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.paneTitle {
+  font-family: var(--heading-font, 'Outfit', sans-serif);
+  font-weight: 900;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.treatments {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.treatmentCard {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* ---------- Fields ---------- */
+.row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 120px;
+}
+
+.label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  font-weight: 600;
+}
+
+.input, .textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0.6rem 0.7rem;
+  font-size: 0.85rem;
+  font-family: var(--primary-font, 'Inter', sans-serif);
+  background: #fff;
+  color: #1a1a1a;
+}
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: #0a0a0a;
+}
+.textarea { resize: vertical; line-height: 1.5; }
+
+/* ---------- Gallery ---------- */
+.galleryPane {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #777;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.imageCard {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.thumb {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 3px;
+  background: #eee;
+}
+
+/* ---------- Messages ---------- */
+.msgOk { color: #7CFFB2; font-size: 0.75rem; font-weight: 600; }
+.msgErr { color: #FF8A8A; font-size: 0.75rem; font-weight: 600; }
+.error {
+  color: #b00020;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 820px) {
+  .servicesLayout { grid-template-columns: 1fr; }
+  .catList {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  .catItem, .catItemActive { white-space: nowrap; }
+}

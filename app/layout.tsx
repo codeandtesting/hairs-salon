@@ -58,13 +58,27 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "HairSalon",
+  "@type": ["HairSalon", "BeautySalon"],
   "name": "Bennu Studio",
+  "description": "Eksklusiv, prisvinnende frisørsalong på Torshov i Oslo. Spesialister på avansert farge, balayage, AirTouch, extensions og presisjonsklipp.",
   "image": "https://bennustudio.no/images/bennu_studio_banner.png",
   "@id": "https://bennustudio.no/#salon",
   "url": "https://bennustudio.no",
   "telephone": "+4791552878",
   "priceRange": "$$",
+  "currenciesAccepted": "NOK",
+  "areaServed": { "@type": "City", "name": "Oslo" },
+  "knowsAbout": [
+    "Hårklipp",
+    "Hårfarge",
+    "Balayage",
+    "AirTouch",
+    "Striper",
+    "Hair extensions",
+    "Keratinbehandling",
+    "Vipper og bryn",
+    "Bryllupsoppsett"
+  ],
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Rosenlundgata 9",

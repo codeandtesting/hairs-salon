@@ -4,18 +4,11 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import styles from '@/app/page.module.css';
+import { galleryImages as seedGallery } from '@/data/gallery';
+import type { GalleryImage } from '@/data/types';
 
-// All 6 new high-resolution colorful gallery images
-const galleryImages = [
-  { img: '/images/gallery/main/curly.JPG', label: 'LUKSUS KRØLLER', size: 'medium', col: 1 },
-  { img: '/images/gallery/main/one.jpg', label: 'KLASSISK BALAYAGE', size: 'tall', col: 2 },
-  { img: '/images/gallery/main/pink.jpg', label: 'PASTELL ROSA', size: 'small', col: 3 },
-  { img: '/images/gallery/main/purple.jpg', label: 'DYP LILLA', size: 'small', col: 3 },
-  { img: '/images/gallery/main/red.JPG', label: 'KIRSEBÆRRØD', size: 'hidden', col: 0 },
-  { img: '/images/gallery/main/redmix.JPG', label: 'KOBBER MIX', size: 'hidden', col: 0 },
-];
-
-export default function Gallery() {
+export default function Gallery({ images }: { images?: GalleryImage[] }) {
+  const galleryImages: GalleryImage[] = images && images.length ? images : seedGallery;
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   // Keyboard navigation for Lightbox

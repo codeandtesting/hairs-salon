@@ -4,14 +4,18 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from '@/app/page.module.css';
 import { servicesList } from '@/data/services';
+import type { Service } from '@/data/types';
 
-export default function Services({ 
-  selectedGender, 
-  onSelectGender 
-}: { 
+export default function Services({
+  services = servicesList,
+  selectedGender,
+  onSelectGender
+}: {
+  services?: Service[];
   selectedGender?: 'DAME' | 'HERRE' | null;
   onSelectGender?: (gender: 'DAME' | 'HERRE' | null) => void;
 }) {
+  const servicesData = services.length ? services : servicesList;
   const [activeServiceIndex, setActiveServiceIndex] = useState(0);
   const [activeSubService, setActiveSubService] = useState<string | null>(null);
 
@@ -54,7 +58,7 @@ export default function Services({
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
               >
-                {servicesList.map((service, index) => {
+                {servicesData.map((service, index) => {
                   const isActive = activeServiceIndex === index;
                   return (
                     <li key={index} className={styles.serviceItemWrapper}>
@@ -114,10 +118,10 @@ export default function Services({
                   className={styles.treatmentsListContainer}
                 >
                   <h3 className={styles.categoryTreatmentsTitle}>
-                    {servicesList[activeServiceIndex].name} {activeSubService && `— ${activeSubService}`}
+                    {servicesData[activeServiceIndex].name} {activeSubService && `— ${activeSubService}`}
                   </h3>
                   <div className={styles.treatmentsScroll}>
-                    {servicesList[activeServiceIndex].treatments
+                    {servicesData[activeServiceIndex].treatments
                       ?.filter(treatment => !activeSubService || treatment.sub === activeSubService)
                       .map((treatment, tIdx) => {
                         const isHighlighted = 

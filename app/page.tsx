@@ -1,31 +1,29 @@
-"use client";
+import HomeClient from '@/components/HomeClient';
+import { getContent } from '@/lib/store';
+import { faqItems } from '@/data/faq';
+import { offerCatalogLd, faqLd } from '@/lib/seo';
 
-import { useState } from 'react';
-import styles from './page.module.css';
-import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Services from '@/components/Services';
-import Stylists from '@/components/Stylists';
-import Gallery from '@/components/Gallery';
-import Results from '@/components/Results';
-import Booking from '@/components/Booking';
-import Footer from '@/components/Footer';
+// Re-render at most once an hour as a safety net; admin saves call
+// revalidatePath('/') so edits show up immediately regardless.
+export const revalidate = 3600;
 
-export default function Home() {
-  const [selectedGender, setSelectedGender] = useState<'DAME' | 'HERRE' | null>(null);
+export default async function Home() {
+  const { services, gallery } = await getContent();
+
+  // Structured data built from the live content so prices in search/AI answers
+  // always match what's on the page.
+  const structuredData = [offerCatalogLd(services), faqLd(faqItems)];
 
   return (
-    <main className={styles.main}>
-      <Navbar />
-      <Hero onSelectGender={setSelectedGender} />
-      <About />
-      <Services selectedGender={selectedGender} onSelectGender={setSelectedGender} />
-      <Stylists />
-      <Gallery />
-      <Results />
-      <Booking />
-      <Footer />
-    </main>
+    <>
+      {structuredData.map((data, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+        />
+      ))}
+      <HomeClient services={services} gallery={gallery} />
+    </>
   );
 }
