@@ -42,8 +42,8 @@ export async function POST(req: Request) {
   const filename = `${Date.now()}-${randomId()}.${ext}`;
 
   try {
-    // Vercel Blob path
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    // Vercel Blob path (supports legacy tokens and new OIDC BLOB_STORE_ID)
+    if (process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID) {
       const { put } = await import('@vercel/blob');
       const blob = await put(`gallery/${filename}`, file, { access: 'public' });
       return NextResponse.json({ url: blob.url });
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     // Safeguard for Vercel deployment without the token configured
     if (process.env.VERCEL) {
       return NextResponse.json(
-        { code: 'missing_blob_token', error: 'BLOB_READ_WRITE_TOKEN is not configured on Vercel.' },
+        { code: 'missing_blob_token', error: 'BLOB_READ_WRITE_TOKEN or BLOB_STORE_ID is not configured on Vercel.' },
         { status: 500 }
       );
     }
