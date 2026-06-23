@@ -208,31 +208,36 @@
   height: 100%;
   z-index: 1;
   overflow: hidden;
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 .heroImg {
   object-fit: cover;
-  transition: transform 1s ease;
-}
-
-.heroHalf:hover .heroImg {
-  transform: scale(1.05);
 }
 
 .heroLink {
   position: relative;
   z-index: 10;
   font-family: var(--primary-font);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #fff;
-  letter-spacing: 1.5rem;
-  margin-right: -1.5rem;
-  transition: opacity 0.3s;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1a1715;
+  letter-spacing: 2px;
+  margin-right: 0;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #fff;
+  border: 2px solid #fff;
+  padding: 0.8rem 3.5rem;
+  border-radius: 4px;
 }
 
 .heroLink:hover {
-  opacity: 0.7;
+  background: #f5f5f5;
+  border-color: #fff;
+  opacity: 0.9;
 }
 
 /* About New */
@@ -520,19 +525,22 @@
 }
 
 .bookAppointmentBtn {
-  background: #1a1715;
-  color: #fff;
-  width: 70%;
-  padding: 3rem;
-  font-size: 1.2rem;
-  font-weight: 900;
-  letter-spacing: 5px;
+  background: #fff;
+  color: #1a1715;
+  width: auto;
+  padding: 1rem 2.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  transition: background 0.3s;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  border-radius: 4px;
 }
 
 .bookAppointmentBtn:hover {
-  background: #333;
+  background: #f5f5f5;
+  opacity: 0.9;
 }
 
 /* Stylists */
@@ -679,6 +687,100 @@
   background: #444;
 }
 
+/* Qualifications */
+.qualificationsSection {
+  margin-top: 7rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 5rem;
+}
+
+.qualificationsContent {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 5rem;
+}
+
+.qualificationsLeftCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.qualificationsSubtitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  color: #1a1715;
+}
+
+.qualificationsHeader {
+  font-family: var(--heading-font);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #1a1715;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.qualificationsIntro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.75;
+  color: #2a2826;
+}
+
+.qualificationsRightCol {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3.5rem 3rem;
+}
+
+.qualificationPillar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.qualificationCategory {
+  font-family: var(--heading-font);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #1a1715;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.qualificationText {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  opacity: 0.7;
+  color: #3a3836;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .qualificationsContent {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .qualificationsRightCol {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .qualificationsSection {
+    margin-top: 4rem;
+    padding-top: 3rem;
+  }
+}
+
 /* Gallery */
 .gallery {
   background: #000;
@@ -738,6 +840,33 @@
   height: 800px;
   width: 100%;
 }
+
+.galleryFullGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  width: 100%;
+}
+
+.galleryFullImgItem {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 1024px) {
+  .galleryFullGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .galleryFullGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
 
 .galleryImgInner {
   filter: grayscale(100%);
@@ -1007,16 +1136,59 @@
 
 .bookingMapButton {
   margin-top: 3rem;
-  border: 1px solid #1a1715;
-  background: transparent;
+  border: 2px solid #fff;
+  background: #fff;
   color: #1a1715;
-  padding: 1.2rem 3.5rem;
+  padding: 0.8rem 3.5rem;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 2px;
   cursor: pointer;
   width: fit-content;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.bookingMapButton:hover {
+  background: #f5f5f5;
+  border-color: #fff;
+  opacity: 0.9;
+}
+
+.reviewBadge {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  width: fit-content;
+  text-decoration: none;
+  color: #1a1715;
+  transition: opacity 0.3s;
+}
+
+.reviewBadge:hover {
+  opacity: 0.65;
+}
+
+.reviewStars {
+  color: #1a1715;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+.reviewScore {
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.reviewCount {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  opacity: 0.6;
   text-transform: uppercase;
 }
 

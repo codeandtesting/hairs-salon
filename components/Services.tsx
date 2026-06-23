@@ -160,7 +160,7 @@ export default function Services({
           >
             <motion.button 
               className={styles.bookAppointmentBtn}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => window.open('https://timma.no/salon/bennustudio', '_blank')}
             >

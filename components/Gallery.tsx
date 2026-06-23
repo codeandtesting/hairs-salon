@@ -10,6 +10,7 @@ import type { GalleryImage } from '@/data/types';
 export default function Gallery({ images }: { images?: GalleryImage[] }) {
   const galleryImages: GalleryImage[] = images && images.length ? images : seedGallery;
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // Keyboard navigation for Lightbox
   useEffect(() => {
@@ -68,21 +69,126 @@ export default function Gallery({ images }: { images?: GalleryImage[] }) {
             >
               GALLERI
             </motion.h2>
-            <div className={styles.galleryGrid}>
-              
-              {/* Column 1 */}
+            {!isExpanded ? (
+              <div className={styles.galleryGrid}>
+                
+                {/* Column 1 */}
+                <motion.div 
+                  className={styles.galleryCol}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {col1Items.map((item, idx) => (
+                    <div 
+                      key={idx} 
+                      className={styles.galleryImgMedium}
+                      onClick={() => handleItemClick(item.img)}
+                      style={{ overflow: 'hidden', position: 'relative', cursor: 'pointer' }}
+                    >
+                      <motion.div
+                        className={styles.galleryImgInner}
+                        style={{ width: '100%', height: '100%', position: 'relative' }}
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <Image 
+                          src={item.img} 
+                          alt={item.label} 
+                          fill 
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className={styles.imgCover} 
+                          priority
+                        />
+                      </motion.div>
+                      <span className={styles.galleryLabel}>{item.label}</span>
+                    </div>
+                  ))}
+                </motion.div>
+
+                {/* Column 2 */}
+                <motion.div 
+                  className={styles.galleryCol}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+                >
+                  {col2Items.map((item, idx) => (
+                    <div 
+                      key={idx} 
+                      className={styles.galleryImgTall}
+                      onClick={() => handleItemClick(item.img)}
+                      style={{ overflow: 'hidden', position: 'relative', cursor: 'pointer' }}
+                    >
+                      <motion.div
+                        className={styles.galleryImgInner}
+                        style={{ width: '100%', height: '100%', position: 'relative' }}
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <Image 
+                          src={item.img} 
+                          alt={item.label} 
+                          fill 
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className={styles.imgCover} 
+                          priority
+                        />
+                      </motion.div>
+                      <span className={styles.galleryLabel}>{item.label}</span>
+                    </div>
+                  ))}
+                </motion.div>
+
+                {/* Column 3 */}
+                <motion.div 
+                  className={styles.galleryCol}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+                >
+                  {col3Items.map((item, idx) => (
+                    <div 
+                      key={idx} 
+                      className={styles.galleryImgSmall}
+                      onClick={() => handleItemClick(item.img)}
+                      style={{ overflow: 'hidden', position: 'relative', cursor: 'pointer' }}
+                    >
+                      <motion.div
+                        className={styles.galleryImgInner}
+                        style={{ width: '100%', height: '100%', position: 'relative' }}
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <Image 
+                          src={item.img} 
+                          alt={item.label} 
+                          fill 
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className={styles.imgCover} 
+                        />
+                      </motion.div>
+                      <span className={styles.galleryLabel}>{item.label}</span>
+                    </div>
+                  ))}
+                </motion.div>
+
+              </div>
+            ) : (
               <motion.div 
-                className={styles.galleryCol}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className={styles.galleryFullGrid}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                {col1Items.map((item, idx) => (
+                {galleryImages.map((item, idx) => (
                   <div 
                     key={idx} 
-                    className={styles.galleryImgMedium}
-                    onClick={() => handleItemClick(item.img)}
+                    className={styles.galleryFullImgItem}
+                    onClick={() => setActiveIdx(idx)}
                     style={{ overflow: 'hidden', position: 'relative', cursor: 'pointer' }}
                   >
                     <motion.div
@@ -95,77 +201,7 @@ export default function Gallery({ images }: { images?: GalleryImage[] }) {
                         src={item.img} 
                         alt={item.label} 
                         fill 
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className={styles.imgCover} 
-                        priority
-                      />
-                    </motion.div>
-                    <span className={styles.galleryLabel}>{item.label}</span>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* Column 2 */}
-              <motion.div 
-                className={styles.galleryCol}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              >
-                {col2Items.map((item, idx) => (
-                  <div 
-                    key={idx} 
-                    className={styles.galleryImgTall}
-                    onClick={() => handleItemClick(item.img)}
-                    style={{ overflow: 'hidden', position: 'relative', cursor: 'pointer' }}
-                  >
-                    <motion.div
-                      className={styles.galleryImgInner}
-                      style={{ width: '100%', height: '100%', position: 'relative' }}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      <Image 
-                        src={item.img} 
-                        alt={item.label} 
-                        fill 
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className={styles.imgCover} 
-                        priority
-                      />
-                    </motion.div>
-                    <span className={styles.galleryLabel}>{item.label}</span>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* Column 3 */}
-              <motion.div 
-                className={styles.galleryCol}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-              >
-                {col3Items.map((item, idx) => (
-                  <div 
-                    key={idx} 
-                    className={styles.galleryImgSmall}
-                    onClick={() => handleItemClick(item.img)}
-                    style={{ overflow: 'hidden', position: 'relative', cursor: 'pointer' }}
-                  >
-                    <motion.div
-                      className={styles.galleryImgInner}
-                      style={{ width: '100%', height: '100%', position: 'relative' }}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      <Image 
-                        src={item.img} 
-                        alt={item.label} 
-                        fill 
-                        sizes="(max-width: 768px) 100vw, 33vw"
+                        sizes="(max-width: 768px) 50vw, 25vw"
                         className={styles.imgCover} 
                       />
                     </motion.div>
@@ -173,8 +209,7 @@ export default function Gallery({ images }: { images?: GalleryImage[] }) {
                   </div>
                 ))}
               </motion.div>
-
-            </div>
+            )}
 
             <div className={styles.galleryFooter}>
               <p className={styles.galleryDesc}>
@@ -182,11 +217,25 @@ export default function Gallery({ images }: { images?: GalleryImage[] }) {
               </p>
               <motion.button 
                 className={styles.viewProjectsBtn}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => {
+                  setIsExpanded(!isExpanded);
+                  setTimeout(() => {
+                    const gallerySection = document.getElementById('gallery');
+                    if (gallerySection) {
+                      const bodyRect = document.body.getBoundingClientRect().top;
+                      const elementRect = gallerySection.getBoundingClientRect().top;
+                      const offsetPosition = (elementRect - bodyRect) - 90;
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }, 50);
+                }}
               >
-                SE ALLE PROSJEKTER
+                {isExpanded ? 'VIS FÆRRE' : 'SE ALLE PROSJEKTER'}
               </motion.button>
             </div>
           </div>

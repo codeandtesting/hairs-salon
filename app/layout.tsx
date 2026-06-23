@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { aggregateRatingLd } from "@/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -110,7 +111,9 @@ const jsonLd = {
     "https://timma.no/salon/bennustudio",
     "https://www.facebook.com/p/Bennu-Studio-100086563312587/",
     "https://instagram.com/Bennu.studio.oslo"
-  ]
+  ],
+  // Verified Timma reviews; omitted automatically until real numbers are set.
+  ...(aggregateRatingLd() ? { "aggregateRating": aggregateRatingLd() } : {})
 };
 
 export default function RootLayout({

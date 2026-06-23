@@ -8,6 +8,24 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      const offset = 90;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = targetElement.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -15,6 +33,7 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   return (
     <>
       <motion.nav 
@@ -32,9 +51,9 @@ export default function Navbar() {
             BENNU STUDIO
           </motion.div>
           <div className={styles.navLinks}>
-            <motion.a href="#about" whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>OM OSS</motion.a>
-            <motion.a href="#services" whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>BEHANDLINGER</motion.a>
-            <motion.a href="#booking" whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>KONTAKT</motion.a>
+            <motion.a href="#about" onClick={(e) => handleNavLinkClick(e, 'about')} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>OM OSS</motion.a>
+            <motion.a href="#services" onClick={(e) => handleNavLinkClick(e, 'services')} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>BEHANDLINGER</motion.a>
+            <motion.a href="#booking" onClick={(e) => handleNavLinkClick(e, 'booking')} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>KONTAKT</motion.a>
           </div>
           <motion.button 
             className={styles.getInTouchBtn}
@@ -65,19 +84,21 @@ export default function Navbar() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.mobileMenuLinks}>
-              <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>OM OSS</a>
-              <a href="#services" onClick={() => setIsMobileMenuOpen(false)}>BEHANDLINGER</a>
-              <a href="#booking" onClick={() => setIsMobileMenuOpen(false)}>KONTAKT</a>
+              <a href="#about" onClick={(e) => handleNavLinkClick(e, 'about')}>OM OSS</a>
+              <a href="#services" onClick={(e) => handleNavLinkClick(e, 'services')}>BEHANDLINGER</a>
+              <a href="#booking" onClick={(e) => handleNavLinkClick(e, 'booking')}>KONTAKT</a>
             </div>
-            <button 
+            <motion.button 
               className={styles.mobileGetInTouchBtn} 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 window.open('https://timma.no/salon/bennustudio', '_blank');
               }}
             >
               BESTILL
-            </button>
+            </motion.button>
             <div className={styles.mobileMenuSocials}>
               <a href="https://www.facebook.com/p/Bennu-Studio-100086563312587/" target="_blank" rel="noopener noreferrer">FACEBOOK</a>
               <a href="https://instagram.com/Bennu.studio.oslo" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>

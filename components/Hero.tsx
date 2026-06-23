@@ -39,11 +39,21 @@ export default function Hero({ onSelectGender }: { onSelectGender?: (gender: 'DA
             href="#services" 
             className={styles.heroLink}
             variants={{
-              rest: { y: 0, opacity: 1 },
-              hover: { y: -8, opacity: 0.7 }
+              rest: { y: 0, opacity: 1, scale: 1 },
+              hover: { y: -8, opacity: 0.7, scale: 1.05 }
             }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            onClick={() => onSelectGender?.('DAME')}
+            onClick={(e) => {
+              e.preventDefault();
+              onSelectGender?.('DAME');
+              const target = document.getElementById('services');
+              if (target) {
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = target.getBoundingClientRect().top;
+                const offsetPosition = (elementRect - bodyRect) - 90;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
           >
             DAME
           </motion.a>
@@ -74,11 +84,21 @@ export default function Hero({ onSelectGender }: { onSelectGender?: (gender: 'DA
             href="#services" 
             className={styles.heroLink}
             variants={{
-              rest: { y: 0, opacity: 1 },
-              hover: { y: -8, opacity: 0.7 }
+              rest: { y: 0, opacity: 1, scale: 1 },
+              hover: { y: -8, opacity: 0.7, scale: 1.05 }
             }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            onClick={() => onSelectGender?.('HERRE')}
+            onClick={(e) => {
+              e.preventDefault();
+              onSelectGender?.('HERRE');
+              const target = document.getElementById('services');
+              if (target) {
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = target.getBoundingClientRect().top;
+                const offsetPosition = (elementRect - bodyRect) - 90;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
           >
             HERRE
           </motion.a>

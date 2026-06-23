@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import styles from '@/app/page.module.css';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -26,19 +27,25 @@ export default function HomeClient({
   return (
     <main className={styles.main}>
       <Navbar />
-      <Hero onSelectGender={setSelectedGender} />
-      <About />
-      <Services
-        services={services}
-        selectedGender={selectedGender}
-        onSelectGender={setSelectedGender}
-      />
-      <Stylists />
-      <Gallery images={gallery} />
-      <Results />
-      <Faq />
-      <Booking />
-      <Footer />
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Hero onSelectGender={setSelectedGender} />
+        <About />
+        <Services
+          services={services}
+          selectedGender={selectedGender}
+          onSelectGender={setSelectedGender}
+        />
+        <Stylists />
+        <Gallery images={gallery} />
+        <Results />
+        <Faq />
+        <Booking />
+        <Footer />
+      </motion.div>
     </main>
   );
 }

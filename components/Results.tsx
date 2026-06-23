@@ -53,10 +53,10 @@ export default function Results() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                 >
-                  <span className={styles.achievementSubtitle}>NORGESMESTERSKAPET / PODIUMSBRAGD</span>
-                  <h4 className={styles.achievementTitle}>Norgesmesterskapet</h4>
+                  <span className={styles.achievementSubtitle}>VERDENSMESTERSKAPET / BRANSJENS OL (PARIS, 2025)</span>
+                  <h4 className={styles.achievementTitle}>OMC Hairworld Paris</h4>
                   <p className={styles.achievementText}>
-                    En tøff nasjonal arena der kun de aller skarpeste lykkes. Våre stylister har konkurrert direkte mot de absolutt beste frisørene og stylistene i hele Norge, og klatret opp på pallen. Et solid bevis på uovertruffen presisjon.
+                    Deltakerdiplom som representant for det norske landslaget (OMC Team Norway). Dette er frisørbransjens offisielle verdensmesterskap og den største globale scenen man kan konkurrere på.
                   </p>
                 </motion.div>
 
@@ -67,10 +67,38 @@ export default function Results() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                 >
-                  <span className={styles.achievementSubtitle}>EUROPEISK MESTERSKAP / INTERNASJONALT GULL & HEDER</span>
+                  <span className={styles.achievementSubtitle}>EUROPEISK MESTERSKAP / SØLVMEDALJE (MOSKVA, 2013)</span>
                   <h4 className={styles.achievementTitle}>OMC Europe Championship</h4>
                   <p className={styles.achievementText}>
-                    Et gigantisk steg opp på den internasjonale scenen. Å hente hjem mesterskaps-medalje her betyr at våre fagfolk har konkurrert på absolutt øverste verdensnivå mot de fremste talentene fra hele Europa.
+                    Sølvmedalje i kategorien Senior Gents Full Fashion Look. Å oppnå pallplassering i Europamesterskapet bekrefter teknisk presisjon og styling i europeisk toppklasse.
+                  </p>
+                </motion.div>
+
+                <motion.div 
+                  className={styles.achievementCard}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+                >
+                  <span className={styles.achievementSubtitle}>GLOBAL BRAND AWARD / GULLVINNER</span>
+                  <h4 className={styles.achievementTitle}>Wella TrendVision Award</h4>
+                  <p className={styles.achievementText}>
+                    Gullvinner i den nasjonale fargekategorien Color Visionary. Dette beviser spisskompetanse innen fargeteknikker og kreativitet på høyt nivå.
+                  </p>
+                </motion.div>
+
+                <motion.div 
+                  className={styles.achievementCard}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+                >
+                  <span className={styles.achievementSubtitle}>NORGESMESTERSKAPET / PODIUMSBRAGD (OSLO, 2013)</span>
+                  <h4 className={styles.achievementTitle}>Norgesmesterskapet</h4>
+                  <p className={styles.achievementText}>
+                    Diplom og pallplassering i kategorien Herre Senior Full Fashion Look. Konkurranse på nasjonalt elitenivå anerkjent av Norske Frisør- og Velværebedrifter (NFVB).
                   </p>
                 </motion.div>
               </div>

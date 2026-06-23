@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import styles from '@/app/page.module.css';
+import { TIMMA_REVIEWS, TIMMA_URL } from '@/lib/seo';
 
 export default function Booking() {
   const fadeInUp = { initial: { opacity: 0, y: 40 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.15 }, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any } };
@@ -30,13 +31,31 @@ export default function Booking() {
               
               <motion.button 
                 className={styles.bookingMapButton}
-                whileHover={{ scale: 1.03, backgroundColor: '#1a1715', color: '#fff', borderColor: '#1a1715' }}
+                whileHover={{ scale: 1.05, backgroundColor: '#1a1715', color: '#fff', borderColor: '#1a1715' }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => window.open('https://timma.no/salon/bennustudio', '_blank')}
                 {...fadeInUp}
               >
                 BESTILL TIME NÅ
               </motion.button>
+
+              {TIMMA_REVIEWS.reviewCount > 0 && (
+                <motion.a
+                  href={TIMMA_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.reviewBadge}
+                  {...fadeInUp}
+                >
+                  <span className={styles.reviewStars} aria-hidden="true">★★★★★</span>
+                  <span className={styles.reviewScore}>
+                    {TIMMA_REVIEWS.ratingValue.toFixed(1)} / 5
+                  </span>
+                  <span className={styles.reviewCount}>
+                    {TIMMA_REVIEWS.reviewCount} verifiserte anmeldelser på Timma →
+                  </span>
+                </motion.a>
+              )}
             </div>
 
             <motion.div 
