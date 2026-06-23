@@ -48,28 +48,47 @@ export async function saveContent(content: SiteContent): Promise<void> {
 function migrateContent(stored: SiteContent): SiteContent {
   let changed = false;
 
-  // 1. Fix old .jpg extensions to .png for default gallery images
+  // 1. Fix old extensions to .png (case-insensitive: .jpg, .jpeg, .JPG, .JPEG)
   const updatedGallery = stored.gallery.map(img => {
-    if (typeof img.img === 'string' && img.img.endsWith('.jpg')) {
-      const replaced = img.img.replace(/\.jpg$/, '.png');
+    if (typeof img.img === 'string' && /\.(jpg|jpeg)$/i.test(img.img)) {
+      const replaced = img.img.replace(/\.(jpg|jpeg)$/i, '.png');
       changed = true;
       return { ...img, img: replaced };
     }
     return img;
   });
 
-  // 2. Sync any new images from seedContent.gallery (like gallery sub/) that aren't in stored database
-  const storedPaths = new Set(updatedGallery.map(img => img.img));
+  // 2. De-duplicate the gallery items by their `img` path
+  const uniqueGalleryMap = new Map<string, typeof updatedGallery[0]>();
+  for (const img of updatedGallery) {
+    const existing = uniqueGalleryMap.get(img.img);
+    if (!existing) {
+      uniqueGalleryMap.set(img.img, img);
+    } else {
+      // Prioritize the visible/configured version of the image
+      if (existing.size === 'hidden' && img.size !== 'hidden') {
+        uniqueGalleryMap.set(img.img, img);
+        changed = true;
+      } else {
+        changed = true; // Duplicate discarded
+      }
+    }
+  }
+
+  let finalGallery = Array.from(uniqueGalleryMap.values());
+
+  // 3. Sync any new images from seedContent.gallery (like gallery sub/) that aren't in stored database
+  const storedPaths = new Set(finalGallery.map(img => img.img));
   const newImagesFromSeed = seedContent.gallery.filter(img => !storedPaths.has(img.img));
   
   if (newImagesFromSeed.length > 0) {
-    updatedGallery.push(...newImagesFromSeed);
+    finalGallery.push(...newImagesFromSeed);
     changed = true;
   }
 
   const migrated = {
     ...stored,
-    gallery: updatedGallery
+    gallery: finalGallery
   };
 
   if (changed) {
