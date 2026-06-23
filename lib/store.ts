@@ -36,19 +36,6 @@ async function writeLocal(content: SiteContent): Promise<void> {
   await fs.writeFile(LOCAL_PATH, JSON.stringify(content, null, 2), 'utf8');
 }
 
-export async function getContent(): Promise<SiteContent> {
-  const redis = getRedis();
-  if (redis) {
-    const stored = await redis.get<SiteContent>(CONTENT_KEY);
-    if (stored && Array.isArray(stored.services) && Array.isArray(stored.gallery)) {
-      return stored;
-    }
-    return seedContent;
-  }
-  const local = await readLocal();
-  return local ?? seedContent;
-}
-
 export async function saveContent(content: SiteContent): Promise<void> {
   const redis = getRedis();
   if (redis) {
@@ -56,4 +43,51 @@ export async function saveContent(content: SiteContent): Promise<void> {
     return;
   }
   await writeLocal(content);
+}
+
+function migrateContent(stored: SiteContent): SiteContent {
+  let changed = false;
+
+  // 1. Fix old .jpg extensions to .png for default gallery images
+  const updatedGallery = stored.gallery.map(img => {
+    if (typeof img.img === 'string' && img.img.endsWith('.jpg')) {
+      const replaced = img.img.replace(/\.jpg$/, '.png');
+      changed = true;
+      return { ...img, img: replaced };
+    }
+    return img;
+  });
+
+  // 2. Sync any new images from seedContent.gallery (like gallery sub/) that aren't in stored database
+  const storedPaths = new Set(updatedGallery.map(img => img.img));
+  const newImagesFromSeed = seedContent.gallery.filter(img => !storedPaths.has(img.img));
+  
+  if (newImagesFromSeed.length > 0) {
+    updatedGallery.push(...newImagesFromSeed);
+    changed = true;
+  }
+
+  const migrated = {
+    ...stored,
+    gallery: updatedGallery
+  };
+
+  if (changed) {
+    saveContent(migrated).catch(err => console.error('Failed to save migrated content:', err));
+  }
+
+  return migrated;
+}
+
+export async function getContent(): Promise<SiteContent> {
+  const redis = getRedis();
+  if (redis) {
+    const stored = await redis.get<SiteContent>(CONTENT_KEY);
+    if (stored && Array.isArray(stored.services) && Array.isArray(stored.gallery)) {
+      return migrateContent(stored);
+    }
+    return seedContent;
+  }
+  const local = await readLocal();
+  return local ? migrateContent(local) : seedContent;
 }
